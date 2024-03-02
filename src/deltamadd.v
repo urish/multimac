@@ -49,7 +49,7 @@ module DMADD(
      		7'b1_1_0_01_0_0: i <= i + 1;	//MAX														 	
      		7'b1_1_0_00_1_0,				//MIN
      		7'b1_1_0_01_1_0: halt <= 1; 	//MAX	
-     		7'b1_1_0_10_?_0: {i,delta,count,total} <= {i  + i_d, delta + mem[i], count+{3'b0,delta}, total + {2'b0,count}} ; //MADD
+     		7'b1_1_0_10_?_0: {i,delta,count,total} <= {i  + i_d, delta + mem[i], count+{2'b0,delta}, total + {2'b0,count}} ; //MADD
      		
 			default: halt <= 1;
          endcase
@@ -60,7 +60,7 @@ module DMADD(
 	end
 	
 	assign hit      = mem[i] != 6'b0; 
-	assign out      = insn[1]  ? {2'b0,total} + {4'b0,count} : {9'b0,i} ;
+	assign out      = insn[1]  ? {2'b0,total} + {4'b0,count} : {8'b0,i} ;
 
 endmodule
 
