@@ -5,61 +5,34 @@
 
 `define default_netname none
 
-module tt_um_fountaincoder_top
-(	input wire clk,
-    input wire rst_n,     // reset_n - low to reset
-    input wire ena,
-	input wire [3:0]  index,
-	input wire [3:0]  data,	
-	input wire [1:0]  insn,
-	input wire load,
-    input wire run,
-    output [12:0] out 	
+module tt_um_fountaincoder_top (
+    input  wire [7:0] ui_in,    // Dedicated inputs
+    output wire [7:0] uo_out,   // Dedicated outputs
+    input  wire [7:0] uio_in,   // IOs: Input path
+    output wire [7:0] uio_out,  // IOs: Output path
+    output wire [7:0] uio_oe,   // IOs: Enable path (active high: 0=input, 1=output)
+    input  wire       ena,      // will go high when the design is enabled
+    input  wire       clk,      // clock
+    input  wire       rst_n     // reset_n - low to reset
 );
- 	
-	reg [3:0] i = 1;
-	reg [3:0] i_e = 4'b1111;  	
-	reg signed [3:0] i_d= 1;
-	reg signed [5:0] mem[15:0];
-	 
-	reg hit  = 0;
-	reg halt = 0;
-	reg signed [5:0] delta;
-	reg [8:0] count;
-	reg [10:0] total;
-	reg [12:0] out_i;	
-	always @(posedge clk) begin
-	  	casez ({rst_n,run,load,insn,hit,halt})
 
-			//Reset
-     		7'b0_?_?_??_?_?: {i,i_e,hit,halt} <= {4'b0,4'b1111,1'b0,1'b0}; 
+assign uio_oe       = 8'b11110000
+assign ena          = 0;
+assign uio_out[3:0] = 4'b0;  
+assign uio_in[4:7]  = 4'b0;
 
-     		//Initialise
-     		7'b1_0_0_00_0_0: {i,i_e}          <= {4'b0,4'b1111}; 		//MIN
-     		7'b1_0_0_01_0_0, 											//MAX										
-     		7'b1_0_0_10_0_0: {i,i_e,i_d}      <= {4'b1111,4'b0,-4'b1};	//MADD
-     		
-	  		//Load Data
-     		7'b1_0_1_00_0_0,										//MIN
-     		7'b1_0_1_01_0_0: mem[index] <= 6'b1;					//MAX														 	
-     		7'b1_0_1_10_0_0: {mem[index], mem[index-1]} <= {mem[index] + {2'b0,data}, mem[index-1] - {2'b0,data}} ; //MADD
-  
-     		//Update and Halt
-     		7'b1_1_0_00_0_0, 				//MIN
-     		7'b1_1_0_01_0_0: i <= i + 1;	//MAX														 	
-     		7'b1_1_0_00_1_0,				//MIN
-     		7'b1_1_0_01_1_0: halt <= 1; 	//MAX	
-     		7'b1_1_0_10_?_0: {i,delta,count,total} <= {i  + i_d, delta + mem[i], count+{3'b0,delta}, total + {2'b0,count}} ; //MADD
-     		
-			default: halt <= 1;
-         endcase
+//assign all the loose ports
 
-		if (i == i_e) begin
-			halt <= 1;
-		end
-	end
-	
-	assign hit      = mem[i] != 6'b0; 
-	assign out      = insn[1]  ? {2'b0,total} + {4'b0,count} : {9'b0,i} ;
+DMADD madd(
+        .clk    (clk),
+        .run    (uio_in[3]),
+        .load   (uio_in[2]),
+        .insn   (uio_in[1:0]),
+        .index  (ui_in[7:4]),
+        .data   (ui_in[3:0]),
+        .out    ({uio_out,uo_out}), 
+        .rst_n  (rst_n)
+);
 
 endmodule
+

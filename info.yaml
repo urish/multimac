@@ -16,6 +16,7 @@ project:
   # List your project's source files here. Source files must be in ./src and you must list each source file separately, one per line:
   source_files:        
     - "project.v"
+    - "deltamadd.v"
 
 # The pinout of your project. Leave unused pins blank. DO NOT delete or add any pins.
 pinout:
@@ -44,8 +45,8 @@ pinout:
   uio[1]: "out[9]"
   uio[2]: "out[10]"
   uio[3]: "out[11]"
-  uio[4]: "insn[0]"
-  uio[5]: "insn[1]"
+  uio[4]: "instruction [0]"
+  uio[5]: "instruction [1]"
   uio[6]: "load"
   uio[7]: "run"
 
