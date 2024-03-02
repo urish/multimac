@@ -14,7 +14,7 @@ module DMADD(
 	input wire [1:0]  insn,
 	input wire load,
     input wire run,
-    output [12:0] out 	
+    output [11:0] out 	
 );
  	
 	reg [3:0] i = 1;
@@ -22,7 +22,7 @@ module DMADD(
 	reg signed [3:0] i_d= 1;
 	reg signed [5:0] mem[15:0];
 	 
-	reg hit  = 0;
+	reg hit;
 	reg halt = 0;
 	reg signed [5:0] delta;
 	reg [8:0] count = 8'b0;
@@ -32,7 +32,7 @@ module DMADD(
 	  	casez ({rst_n,run,load,insn,hit,halt})
 
 			//Reset
-     		7'b0_?_?_??_?_?: {i,i_e,hit,halt,count,total} <= {4'b0,4'b1111,1'b0,1'b0,8'b0,10'b0}; 
+     		7'b0_?_?_??_?_?: {i,i_e,halt,count,total} <= {4'b0,4'b1111,1'b0,8'b0,10'b0}; 
 
      		//Initialise
      		7'b1_0_0_00_0_0: {i,i_e}          <= {4'b0,4'b1111}; 		//MIN

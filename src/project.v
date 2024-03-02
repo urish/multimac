@@ -6,20 +6,20 @@
 `define default_netname none
 
 module tt_um_fountaincoder_top (
+    input  wire       clk,      // clock
+    input  wire       ena,      // will go high when the design is enabled
     input  wire [7:0] ui_in,    // Dedicated inputs
     output wire [7:0] uo_out,   // Dedicated outputs
     input  wire [7:0] uio_in,   // IOs: Input path
     output wire [7:0] uio_out,  // IOs: Output path
     output wire [7:0] uio_oe,   // IOs: Enable path (active high: 0=input, 1=output)
-    input  wire       ena,      // will go high when the design is enabled
-    input  wire       clk,      // clock
     input  wire       rst_n     // reset_n - low to reset
 );
 
 assign uio_oe       = 8'b11110000;
 assign dummy2          =  ena;
 assign uio_out[3:0] = 4'b0;  
-assign uio_in[4:7]  = 4'b0;
+assign uio_in[7:4]  = 4'b0;
 
 //assign all the loose ports
 
@@ -30,7 +30,7 @@ DMADD madd(
         .insn   (uio_in[1:0]),
         .index  (ui_in[7:4]),
         .data   (ui_in[3:0]),
-        .out    ({uio_out,uo_out}), 
+        .out    ({uio_out[7:4],uo_out}), 
         .rst_n  (rst_n)
 );
 
