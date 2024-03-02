@@ -8,6 +8,7 @@
 module tt_um_fountaincoder_top
 (	input wire clk,
     input wire rst_n,     // reset_n - low to reset
+    input wire ena,
 	input wire [3:0]  index,
 	input wire [3:0]  data,	
 	input wire [1:0]  insn,
