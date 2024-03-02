@@ -16,7 +16,7 @@ module tt_um_fountaincoder_top (
     input  wire       rst_n     // reset_n - low to reset
 );
 
-assign uio_oe       = 8'b11110000
+assign uio_oe       = 8'b11110000;
 assign ena          = 0;
 assign uio_out[3:0] = 4'b0;  
 assign uio_in[4:7]  = 4'b0;
