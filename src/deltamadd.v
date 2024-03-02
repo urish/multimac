@@ -25,8 +25,8 @@ module DMADD(
 	reg hit;
 	reg halt = 0;
 	reg signed [5:0] delta;
-	reg [8:0] count = 8'b0;
-	reg [10:0] total = 10'b0;
+	reg [7:0] count = 8'b0;
+	reg [9:0] total = 10'b0;
 	
 	always @(posedge clk) begin
 	  	casez ({rst_n,run,load,insn,hit,halt})
