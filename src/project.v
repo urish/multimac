@@ -6,7 +6,6 @@
 `define default_netname none
 
 module tt_um_fountaincoder_top
-#()
 (	input wire clk,
     input wire rst_n,     // reset_n - low to reset
 	input wire [3:0]  index,
