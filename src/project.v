@@ -19,7 +19,6 @@ module tt_um_fountaincoder_top (
 // All output pins must be assigned. If not used, assign to 0.
 assign uio_oe = 8'b11110000;
 assign uio_out[3:0] = 4'b0;
-
 /* verilator lint_off UNUSED */
 wire [3:0] dummy1 = uio_in[7:4];
 wire dummy2 = ena;
