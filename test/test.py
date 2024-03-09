@@ -17,46 +17,71 @@ from cocotb.triggers import ClockCycles
         # .rst_n  (rst_n)
 # );
 # 
-
-@cocotb.test()
-async def test_15(dut):
-    dut._log.info("Start 15")
-  
-    # Our example module doesn't use clock and reset, but we show how to use them here anyway.
-    clock = Clock(dut.clk, 10, units="us")
-    cocotb.start_soon(clock.start())
-    # Reset
-    dut.rst_n.value = 0
-    await ClockCycles(dut.clk,100)
-    dut.ena.value = 1
-    dut.rst_n.value = 1
-    dut.uio_in.value = 0b0000_0_1_00
-    dut.ui_in.value = 0b1111_1111
-    await ClockCycles(dut.clk,100 )
-    dut.uio_in.value = 0b0000_1_0_00
-    await ClockCycles(dut.clk,100 )
-    dut._log.info(dut.uo_out.value)
-    assert(dut.uo_out.value==0b1111)
-
 # @cocotb.test()
-# async def test_1(dut):
-    # dut._log.info("Start 1")
+# async def test_15(dut):
+    # dut._log.info("Start 15")
   # 
     # # Our example module doesn't use clock and reset, but we show how to use them here anyway.
     # clock = Clock(dut.clk, 10, units="us")
     # cocotb.start_soon(clock.start())
+    # #Reset
     # dut.rst_n.value = 0
-    # await ClockCycles(dut.clk,100)
+    # await ClockCycles(dut.clk,1)
     # dut.ena.value = 1
     # dut.rst_n.value = 1
     # dut.uio_in.value = 0b0000_0_1_00
-    # dut.ui_in.value = 0b0001_0000
-    # await ClockCycles(dut.clk,100 )
+    # dut.ui_in.value = 0b1111_1111
+    # await ClockCycles(dut.clk,1 )
     # dut.uio_in.value = 0b0000_1_0_00
-    # await ClockCycles(dut.clk,100 )
+    # await ClockCycles(dut.clk,30 )
     # dut._log.info(dut.uo_out.value)
-    # assert(dut.uo_out.value==0b0001)
-# 
+    # assert(dut.uo_out.value==0b1111)
+
+@cocotb.test()
+async def test_1(dut):
+    dut._log.info("Start 1")
+  
+    # Our example module doesn't use clock and reset, but we show how to use them here anyway.
+    clock = Clock(dut.clk, 10, units="us")
+    cocotb.start_soon(clock.start())
+    dut.rst_n.value = 0
+    dut.uio_in.value = 0b0000_0_0_00
+    await ClockCycles(dut.clk,1)
+    dut.rst_n.value = 1
+    await ClockCycles(dut.clk,1)
+    dut.ena.value = 1
+    dut.uio_in.value = 0b0000_0_1_00
+    dut.ui_in.value = 0b0001_0000
+    await ClockCycles(dut.clk,1 )
+    dut.uio_in.value = 0b0000_1_0_00
+    await ClockCycles(dut.clk,30 )
+    dut._log.info(dut.uo_out.value)
+    assert(dut.uo_out.value==0b0001)
+
+@cocotb.test()
+async def test_15(dut):
+    dut._log.info("Start 1")
+  
+    # Our example module doesn't use clock and reset, but we show how to use them here anyway.
+    clock = Clock(dut.clk, 10, units="us")
+    cocotb.start_soon(clock.start())
+    dut.rst_n.value = 0
+    dut.uio_in.value = 0b0000_0_0_00
+    await ClockCycles(dut.clk,1)
+    dut.rst_n.value = 1
+    dut.ena.value = 1
+    dut.uio_in.value = 0b0000_0_1_00
+    dut.ui_in.value = 0b1100_0000
+    await ClockCycles(dut.clk,1 )
+    dut.uio_in.value = 0b0000_1_0_00
+    await ClockCycles(dut.clk,20 )
+    dut._log.info(dut.uo_out.value)
+    assert(dut.uo_out.value==0b1100)
+
+
+
+
+
 # @cocotb.test()
 # async def test_78(dut):
     # dut._log.info("Start 78")
