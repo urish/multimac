@@ -34,8 +34,8 @@ module DMADD(
      		5'b0_?_?_??: begin out_reg<=0; set<=0; i<= 4'b1111; i_d<=-3'b1; i_e<=4'b0; for (j=0;j<15;j=j+1) begin mem[j]<=0; end end
      		 
      		//Initialise
-     		5'b1_0_0_00: begin i<=4'b0; i_d=4'b1; i_e <= 4'b1111; end  	// Initialise MIN
-     		5'b1_0_0_01: begin i<=4'b1111; i_d= -3'b1; i_e <=  4'b0; end 	// Initialise MAX
+     		5'b1_0_0_00: begin i<= 4'b0; i_d<= 4'b1; i_e <= 4'b1111; end  	// Initialise MIN
+     		5'b1_0_0_01: begin i<= 4'b1111; i_d<= -3'b1; i_e <= 4'b0; end 	// Initialise MAX
      		5'b1_0_1_00,
      		5'b1_0_1_01: mem[index]  <= 6'b1;					// Load Data MIN
      		5'b1_1_0_00,
