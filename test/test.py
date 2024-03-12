@@ -36,7 +36,7 @@ async def test_mn1(dut):
     dut.uio_in.value = 0b0000_1_0_00
     await ClockCycles(dut.clk,30 )
     dut._log.info(dut.uo_out.value)
-    assert(dut.uo_out.value==0b0001)
+    assert dut.uo_out.value==1
 
 @cocotb.test()
 async def test_mn12(dut):
@@ -56,7 +56,7 @@ async def test_mn12(dut):
     dut.uio_in.value = 0b0000_1_0_00
     await ClockCycles(dut.clk,20 )
     dut._log.info(dut.uo_out.value)
-    assert(dut.uo_out.value==0b1100)
+    assert dut.uo_out.value == 12
 
 @cocotb.test()
 async def test_mn78(dut):
@@ -81,7 +81,7 @@ async def test_mn78(dut):
     dut.uio_in.value = 0b0000_1_0_00
     await ClockCycles(dut.clk,30 )
     dut._log.info(dut.uo_out.value)
-    assert(dut.uo_out.value==0b0111)
+    assert dut.uo_out.value==7
  
 @cocotb.test()
 async def test_mn8(dut):
@@ -105,7 +105,7 @@ async def test_mn8(dut):
     dut.uio_in.value = 0b0000_1_0_00
     await ClockCycles(dut.clk,30 )
     dut._log.info(dut.uo_out.value)
-    assert(dut.uo_out.value==0b1000)
+    assert dut.uo_out.value==8
 # 
 # #
 # # #######################################
@@ -130,7 +130,7 @@ async def test_mx1(dut):
     dut.uio_in.value = 0b0000_1_0_01
     await ClockCycles(dut.clk,30 )
     dut._log.info(dut.uo_out.value)
-    assert(dut.uo_out.value==0b0001)
+    assert dut.uo_out.value==1
 
 @cocotb.test()
 async def test_mx12(dut):
@@ -150,7 +150,7 @@ async def test_mx12(dut):
     dut.uio_in.value = 0b0000_1_0_01
     await ClockCycles(dut.clk,20 )
     dut._log.info(dut.uo_out.value)
-    assert(dut.uo_out.value==0b1100)
+    assert dut.uo_out.value==12
 
 @cocotb.test()
 async def test_mx78(dut):
@@ -174,7 +174,7 @@ async def test_mx78(dut):
     dut.uio_in.value = 0b0000_1_0_01
     await ClockCycles(dut.clk,20)
     dut._log.info(dut.uo_out.value)
-    assert(dut.uo_out.value==0b1000)
+    assert dut.uo_out.value==8
 
 @cocotb.test()
 async def test_mx8(dut):
@@ -196,4 +196,4 @@ async def test_mx8(dut):
     dut.uio_in.value = 0b0000_1_0_01
     await ClockCycles(dut.clk,20)
     dut._log.info(dut.uo_out.value)
-    assert(dut.uo_out.value==0b0001)
+    assert dut.uo_out.value== 1
