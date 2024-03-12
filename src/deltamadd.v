@@ -26,23 +26,23 @@ module DMADD(
 	reg [7:0] count = 8'b0;
 	reg [9:0] total = 10'b0;
 	reg [11:0] out_reg;
-	reg run_reg = 1; 
+	reg set = 0;
 	always @(posedge clk) begin
 	  	casez ({rst_n, run,load,insn})
 			
 			//Reset
-     		5'b0_?_?_??: begin i<= 4'b1111; i_d<=-3'b1; i_e<=4'b0; run_reg = 1; for (j=0;j<15;j=j+1) begin mem[j]<=0; end end
+     		5'b0_?_?_??: begin out_reg<=0; set<=0; i<= 4'b1111; i_d<=-3'b1; i_e<=4'b0; for (j=0;j<15;j=j+1) begin mem[j]<=0; end end
      		 
      		//Initialise
-     		5'b1_0_0_00: {i,i_d,i_e} <= {4'b0, 4'b1, 4'b1111};  	// Initialise MIN
-     		5'b1_0_1_00: mem[index]  <= 6'b1;					// Load Data MIN
-     		5'b1_1_0_00:           i <= i + i_d;				// Run MIN
+     		5'b1_0_0_00: begin i<=4'b0; i_d=4'b1; i_e <= 4'b1111; end  	// Initialise MIN
+     		5'b1_0_0_01: begin i<=4'b1111; i_d= -3'b1; i_e <=  4'b0; end 	// Initialise MAX
+     		5'b1_0_1_00,
+     		5'b1_0_1_01: mem[index]  <= 6'b1;					// Load Data MIN
+     		5'b1_1_0_00,
+     		5'b1_1_0_01: i <= i + i_d;				// Run MIN
 
 			default: bad_pattern <= 1;
-  
-     		//7'b1_0_1_01: 					//MAX														 	
-     		//Update and Halt
-     		//7'b1_1_0_01: 	//MAX														 	
+  													 	
      		//7'b1_0_1_10: {mem[index], mem[index-1]} <= {mem[index] + {2'b0,data}, mem[index-1] - {2'b0,data}} ; //MADD
      		//7'b1_1_0_10: {i,delta,count,total} <= {i  + i_d, delta + mem[i], count+{2'b0,delta}, total + {2'b0,count}} ; //MADD
          endcase
@@ -52,16 +52,17 @@ module DMADD(
 		//	# rst_n_reg <= 0 ;
 		//end
 
-		if (mem[i] != 6'b0 ) begin
+		if ((mem[i] != 6'b0) && !set) begin
 			out_reg <= {8'b0,i};
 			i_d <= 0;
-			 
-		end  	
+			set <= 1;
+		end 
+
+		 	
 	$display("%d r %d run %d load %d isn %d bad %d i_d %d i_e %d index %d data %d out_reg %d", i ,rst_n, run, load,insn, bad_pattern,i_d,i_e, index, data,out_reg);
 	
 	end
 		assign out = out_reg;
-		assign rst_n = run_reg;
 		
 endmodule
 
