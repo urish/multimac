@@ -23,7 +23,10 @@ wire [3:0] dummy1 = uio_in[7:4];
 wire dummy2 = ena;
 assign uio_oe       = 8'b11110000;
 //assign all the loose ports
-
+wire [7:0] out;
+wire [3:0] out_top;
+assign uo_out = out;
+assign uio_out[7:4] = out_top;
 DMADD madd(
         .clk    (clk),
         .run    (uio_in[3]),
@@ -31,8 +34,8 @@ DMADD madd(
         .insn   (uio_in[1:0]),
         .index  (ui_in[7:4]),
         .data   (ui_in[3:0]),
-        .out    (uo_out),
-        .out_top (uio_out[7:4]), 
+        .out    (out),
+        .out_top (out_top), 
         .rst_n  (rst_n)
 );
 
