@@ -22,41 +22,41 @@ async def test_mn1(dut):
     dut._log.info("min 1")
   
     # Our example module doesn't use clock and reset, but we show how to use them here anyway.
-    clock = Clock(dut.clk, 10, units="us")
+    clock = Clock(dut.clk, 20, units="us")
     cocotb.start_soon(clock.start())
-    dut.rst_n.value = 0
-    dut.uio_in.value = 0b0000_0_0_00
+    dut.rst_n = 0
+    dut.uio_in = 0b0000_0_0_00
     await ClockCycles(dut.clk,1)
-    dut.rst_n.value = 1
+    dut.rst_n = 1
     await ClockCycles(dut.clk,1)
-    dut.ena.value = 1
-    dut.uio_in.value = 0b0000_0_1_00
-    dut.ui_in.value = 0b0001_0000
+    dut.ena  = 1
+    dut.uio_in = 0b0000_0_1_00
+    dut.ui_in = 0b0001_0000
     await ClockCycles(dut.clk,1 )
-    dut.uio_in.value = 0b0000_1_0_00
+    dut.uio_in  = 0b0000_1_0_00
     await ClockCycles(dut.clk,30 )
-    dut._log.info(dut.uo_out.value)
-    assert dut.uo_out.value==1
+    dut._log.info(dut.uo_out)
+    assert dut.uo_out==1
 
 @cocotb.test()
 async def test_mn12(dut):
     dut._log.info("min 12")
   
     # Our example module doesn't use clock and reset, but we show how to use them here anyway.
-    clock = Clock(dut.clk, 10, units="us")
+    clock = Clock(dut.clk, 20, units="us")
     cocotb.start_soon(clock.start())
-    dut.rst_n.value = 0
-    dut.uio_in.value = 0b0000_0_0_00
+    dut.rst_n = 0
+    dut.uio_in = 0b0000_0_0_00
     await ClockCycles(dut.clk,1)
-    dut.rst_n.value = 1
-    dut.ena.value = 1
-    dut.uio_in.value = 0b0000_0_1_00
-    dut.ui_in.value = 0b1100_0000
+    dut.rst_n = 1
+    dut.ena = 1
+    dut.uio_in = 0b0000_0_1_00
+    dut.ui_in = 0b1100_0000
     await ClockCycles(dut.clk,1 )
-    dut.uio_in.value = 0b0000_1_0_00
+    dut.uio_in = 0b0000_1_0_00
     await ClockCycles(dut.clk,20 )
-    dut._log.info(dut.uo_out.value)
-    assert dut.uo_out.value == 12
+    dut._log.info(dut.uo_out)
+    assert dut.uo_out == 12
 
 @cocotb.test()
 async def test_mn78(dut):
@@ -66,22 +66,22 @@ async def test_mn78(dut):
     
     clock = Clock(dut.clk, 10, units="us")
     cocotb.start_soon(clock.start())
-    dut.rst_n.value = 0
-    dut.uio_in.value = 0b0000_0_0_00
+    dut.rst_n = 0
+    dut.uio_in = 0b0000_0_0_00
     await ClockCycles(dut.clk,1)
     # Reset
-    dut.ena.value = 1
-    dut.rst_n.value = 1
+    dut.ena = 1
+    dut.rst_n = 1
     await ClockCycles(dut.clk,1)
-    dut.uio_in.value = 0b0000_0_1_00
-    dut.ui_in.value = 0b0111_0000
+    dut.uio_in = 0b0000_0_1_00
+    dut.ui_in = 0b0111_0000
     await ClockCycles(dut.clk,1 )
-    dut.ui_in.value = 0b1000_0000
+    dut.ui_in = 0b1000_0000
     await ClockCycles(dut.clk,1 )
-    dut.uio_in.value = 0b0000_1_0_00
+    dut.uio_in = 0b0000_1_0_00
     await ClockCycles(dut.clk,30 )
-    dut._log.info(dut.uo_out.value)
-    assert dut.uo_out.value==7
+    dut._log.info(dut.uo_out)
+    assert dut.uo_out==7
  
 @cocotb.test()
 async def test_mn8(dut):
@@ -94,18 +94,18 @@ async def test_mn8(dut):
     clock = Clock(dut.clk, 10, units="us")
     cocotb.start_soon(clock.start())
 
-    dut.rst_n.value = 0
+    dut.rst_n = 0
     await ClockCycles(dut.clk,100)
     # Reset
-    dut.ena.value = 1
-    dut.rst_n.value = 1
-    dut.uio_in.value = 0b0000_0_1_00
-    dut.ui_in.value = 0b1000_0000
+    dut.ena = 1
+    dut.rst_n = 1
+    dut.uio_in = 0b0000_0_1_00
+    dut.ui_in = 0b1000_0000
     await ClockCycles(dut.clk,100 )
-    dut.uio_in.value = 0b0000_1_0_00
+    dut.uio_in = 0b0000_1_0_00
     await ClockCycles(dut.clk,30 )
-    dut._log.info(dut.uo_out.value)
-    assert dut.uo_out.value==8
+    dut._log.info(dut.uo_out)
+    assert dut.uo_out==8
 # 
 # #
 # # #######################################
@@ -118,19 +118,19 @@ async def test_mx1(dut):
     # Our example module doesn't use clock and reset, but we show how to use them here anyway.
     clock = Clock(dut.clk, 10, units="us")
     cocotb.start_soon(clock.start())
-    dut.rst_n.value = 0
-    dut.uio_in.value = 0b0000_0_0_00
+    dut.rst_n = 0
+    dut.uio_in = 0b0000_0_0_00
     await ClockCycles(dut.clk,1)
-    dut.rst_n.value = 1
+    dut.rst_n = 1
     await ClockCycles(dut.clk,1)
-    dut.ena.value = 1
-    dut.uio_in.value = 0b0000_0_1_01
-    dut.ui_in.value = 0b0001_0000
+    dut.ena = 1
+    dut.uio_in = 0b0000_0_1_01
+    dut.ui_in = 0b0001_0000
     await ClockCycles(dut.clk,1 )
-    dut.uio_in.value = 0b0000_1_0_01
+    dut.uio_in = 0b0000_1_0_01
     await ClockCycles(dut.clk,30 )
-    dut._log.info(dut.uo_out.value)
-    assert dut.uo_out.value==1
+    dut._log.info(dut.uo_out)
+    assert dut.uo_out==1
 
 @cocotb.test()
 async def test_mx12(dut):
@@ -139,18 +139,18 @@ async def test_mx12(dut):
     # Our example module doesn't use clock and reset, but we show how to use them here anyway.
     clock = Clock(dut.clk, 10, units="us")
     cocotb.start_soon(clock.start())
-    dut.rst_n.value = 0
-    dut.uio_in.value = 0b0000_0_0_00
+    dut.rst_n = 0
+    dut.uio_in = 0b0000_0_0_00
     await ClockCycles(dut.clk,1)
-    dut.rst_n.value = 1
-    dut.ena.value = 1
-    dut.uio_in.value = 0b0000_0_1_01
-    dut.ui_in.value = 0b1100_0000
+    dut.rst_n = 1
+    dut.ena = 1
+    dut.uio_in = 0b0000_0_1_01
+    dut.ui_in = 0b1100_0000
     await ClockCycles(dut.clk,1 )
-    dut.uio_in.value = 0b0000_1_0_01
+    dut.uio_in = 0b0000_1_0_01
     await ClockCycles(dut.clk,20 )
-    dut._log.info(dut.uo_out.value)
-    assert dut.uo_out.value==12
+    dut._log.info(dut.uo_out)
+    assert dut.uo_out==12
 
 @cocotb.test()
 async def test_mx78(dut):
@@ -160,21 +160,21 @@ async def test_mx78(dut):
     
     clock = Clock(dut.clk, 10, units="us")
     cocotb.start_soon(clock.start())
-    dut.rst_n.value = 0
-    dut.uio_in.value = 0b0000_0_0_00
+    dut.rst_n = 0
+    dut.uio_in = 0b0000_0_0_00
     await ClockCycles(dut.clk,1)
     # Reset
-    dut.ena.value = 1
-    dut.rst_n.value = 1
-    dut.uio_in.value = 0b0000_0_1_01
-    dut.ui_in.value = 0b0111_0000
+    dut.ena = 1
+    dut.rst_n = 1
+    dut.uio_in = 0b0000_0_1_01
+    dut.ui_in = 0b0111_0000
     await ClockCycles(dut.clk,1 )
-    dut.ui_in.value = 0b1000_0000
+    dut.ui_in = 0b1000_0000
     await ClockCycles(dut.clk,1 )
-    dut.uio_in.value = 0b0000_1_0_01
+    dut.uio_in = 0b0000_1_0_01
     await ClockCycles(dut.clk,20)
-    dut._log.info(dut.uo_out.value)
-    assert dut.uo_out.value==8
+    dut._log.info(dut.uo_out)
+    assert dut.uo_out==8
 
 @cocotb.test()
 async def test_mx8(dut):
@@ -184,19 +184,19 @@ async def test_mx8(dut):
     
     clock = Clock(dut.clk, 10, units="us")
     cocotb.start_soon(clock.start())
-    dut.rst_n.value = 0
-    dut.uio_in.value = 0b0000_0_0_00
+    dut.rst_n = 0
+    dut.uio_in = 0b0000_0_0_00
     await ClockCycles(dut.clk,1)
     # Reset
-    dut.ena.value = 1
-    dut.rst_n.value = 1
-    dut.uio_in.value = 0b0000_0_1_01
-    dut.ui_in.value = 0b0001_0000
+    dut.ena = 1
+    dut.rst_n = 1
+    dut.uio_in = 0b0000_0_1_01
+    dut.ui_in = 0b0001_0000
     await ClockCycles(dut.clk,1 )
-    dut.uio_in.value = 0b0000_1_0_01
+    dut.uio_in = 0b0000_1_0_01
     await ClockCycles(dut.clk,20)
-    dut._log.info(dut.uo_out.value)
-    assert dut.uo_out.value== 1
+    dut._log.info(dut.uo_out)
+    assert dut.uo_out== 1
 
 ####################################################
 
@@ -208,22 +208,22 @@ async def test_madd1(dut):
     
     clock = Clock(dut.clk, 10, units="us")
     cocotb.start_soon(clock.start())
-    dut.rst_n.value = 0
-    dut.uio_in.value = 0b0000_0_0_00
+    dut.rst_n = 0
+    dut.uio_in = 0b0000_0_0_00
     await ClockCycles(dut.clk,1)
     # Reset
-    dut.ena.value = 1
-    dut.rst_n.value = 1
-    dut.uio_in.value = 0b0000_0_1_10
-    dut.ui_in.value = 0b0111_0001
+    dut.ena = 1
+    dut.rst_n = 1
+    dut.uio_in = 0b0000_0_1_10
+    dut.ui_in = 0b0111_0001
     await ClockCycles(dut.clk,1 )
-    dut.ui_in.value = 0b0011_0101
+    dut.ui_in = 0b0011_0101
     await ClockCycles(dut.clk,1 )
     
-    dut.uio_in.value = 0b0000_1_0_10
+    dut.uio_in = 0b0000_1_0_10
     await ClockCycles(dut.clk,20)
-    dut._log.info(dut.uo_out.value)
-    assert dut.uo_out.value== 22
+    dut._log.info(dut.uo_out)
+    assert dut.uo_out== 22
 
 
 @cocotb.test()
@@ -234,20 +234,20 @@ async def test_madd2(dut):
     
     clock = Clock(dut.clk, 10, units="us")
     cocotb.start_soon(clock.start())
-    dut.rst_n.value = 0
-    dut.uio_in.value = 0b0000_0_0_00
+    dut.rst_n = 0
+    dut.uio_in = 0b0000_0_0_00
     await ClockCycles(dut.clk,1)
     # Reset
-    dut.ena.value = 1
-    dut.rst_n.value = 1
-    dut.uio_in.value = 0b0000_0_1_10
-    dut.ui_in.value = 0b1110_0001
+    dut.ena = 1
+    dut.rst_n = 1
+    dut.uio_in = 0b0000_0_1_10
+    dut.ui_in = 0b1110_0001
     await ClockCycles(dut.clk,1 )
-    dut.ui_in.value = 0b0001_0010
+    dut.ui_in = 0b0001_0010
     await ClockCycles(dut.clk,1 )
     
-    dut.uio_in.value = 0b0000_1_0_10
+    dut.uio_in = 0b0000_1_0_10
     await ClockCycles(dut.clk,20)
-    dut._log.info(dut.uo_out.value)
-    assert dut.uo_out.value== 16
+    dut._log.info(dut.uo_out)
+    assert dut.uo_out== 16
 
