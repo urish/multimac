@@ -13,7 +13,7 @@ module DMADD(
 	input wire [1:0]  insn,
 	input wire load,
     input wire run,
-    output [11:0] out 	
+    output [11:0] out
 );
 
  	reg [3:0] j=0 ;
@@ -26,7 +26,7 @@ module DMADD(
 	reg signed [5:0] delta=6'b0;
 	reg [7:0] count = 8'b0;
 	reg [9:0] total = 10'b0;
-	reg [11:0] out_reg;
+	reg [11:0] out_reg  = 0;
 	reg set = 0;
 	always @(posedge clk) begin
 	  	casez ({rst_n, run,load,insn})
@@ -60,7 +60,7 @@ module DMADD(
 		 end 
 
 		 	
-	$display("%d r %d run %d load %d isn %d bad %d i_d %d i_e %d index %d data %d out_reg %d", i ,rst_n, run, load,insn, bad_pattern,i_d,i_e, index, data,out_reg);
+	$display("%d r %d run %d load %d isn %d bad %d i_d %d i_e %d index %d data %d out_reg %d", i ,rst_n, run, load,insn, bad_pattern,i_d,i_e, index, data,out);
 	$display("d %d c %d t %d m %d",delta,count,total,mem[i]);
 	end
 		assign out = out_reg;
