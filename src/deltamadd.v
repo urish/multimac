@@ -13,7 +13,7 @@ module DMADD(
 	input wire [1:0]  insn,
 	input wire load,
     input wire run,
-    output [11:0] out
+    output wire [11:0] out
 );
 
  	reg [3:0] j=0 ;
