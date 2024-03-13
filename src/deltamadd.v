@@ -13,7 +13,9 @@ module DMADD(
 	input wire [1:0]  insn,
 	input wire load,
     input wire run,
-    output wire [11:0] out
+    output wire [7:0] out,
+    output wire [3:0] out_top
+    
 );
 
  	reg [3:0] j=0 ;
@@ -63,7 +65,8 @@ module DMADD(
 	$display("%d r %d run %d load %d isn %d bad %d i_d %d i_e %d index %d data %d out_reg %d", i ,rst_n, run, load,insn, bad_pattern,i_d,i_e, index, data,out);
 	$display("d %d c %d t %d m %d",delta,count,total,mem[i]);
 	end
-		assign out = out_reg;
+		assign out = out_reg[7:0];
+		assign out_top = out_reg[11:8];
 		
 endmodule
 
