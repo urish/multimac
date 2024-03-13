@@ -49,7 +49,7 @@ module DMADD(
 		endcase
 
 		if (i == i_e && insn[1]==1) begin
-			out_reg = {2'b0,total} + {4'b0,count};
+			out_reg <= {2'b0,total} + {4'b0,count};
 			i_d <= 0 ;
 		end
 
