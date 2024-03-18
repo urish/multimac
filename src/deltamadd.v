@@ -18,23 +18,23 @@ module DMADD(
     
 );
 
- 	reg [3:0] j=0 ;
-	reg [3:0] i = 4'b1111;
-	reg signed [3:0] i_d= -1;
-	reg [3:0] i_e = 4'b0;   
+ 	reg [3:0] j; //j=0 ;
+	reg [3:0] i; // i = 4'b1111;
+	reg signed [3:0] i_d;//= -1;
+	reg [3:0] i_e;// = 4'b0;   
 		
 	reg signed [5:0] mem[15:0];
-	reg bad_pattern = 0;
-	reg signed [5:0] delta=6'b0;
-	reg [7:0] count = 8'b0;
-	reg [9:0] total = 10'b0;
-	reg [11:0] out_reg  = 0;
-	reg set = 0;
+	reg bad_pattern;// = 0;
+	reg signed [5:0] delta;// =6'b0;
+	reg [7:0] count;// = 8'b0;
+	reg [9:0] total;// = 10'b0;
+	reg [11:0] out_reg;//  = 0;
+	reg set; // = 0;
 	always @(posedge clk) begin
 	  	casez ({rst_n, run,load,insn})
 			
 			//Reset
-     		5'b0_?_?_??: begin out_reg<=0; set<=0; i<= 4'b1111; i_d<=-3'b1; i_e<=4'b0; delta<=6'b0; count<=8'b0;total<=10'b0; for (j=0;j<15;j=j+1) begin mem[j]<=0; end end
+     		5'b0_?_?_??: begin out_reg<=0; set<=0; i<= 4'b1111; i_d<=-3'b1; i_e<=4'b0; delta<=6'b0; count<=8'b0;total<=10'b0; bad_pattern=0; for (j=0;j<15;j=j+1) begin mem[j]<=0; end end
      		 
      		//Initialise
      		5'b1_0_0_00: begin i<= 4'b0; i_d<= 4'b1; i_e <= 4'b1111; end  	// Initialise MIN
