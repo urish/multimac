@@ -17,3 +17,4 @@ I've tested this using a verilator simulation included below - I like the `cpp` 
 ## External hardware
 
 I intend for this to be driven by the RP2040 and to work as a "coprocessor" for vector calculations
+Other.
