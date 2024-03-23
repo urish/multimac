@@ -65,8 +65,8 @@ module DMADD(
 //	$display("%d r %d run %d load %d isn %d bad %d i_d %d i_e %d index %d data %d out_reg %d", i ,rst_n, run, load,insn, bad_pattern,i_d,i_e, index, data,out);
 //	$display("d %d c %d t %d m %d",delta,count,total,mem[i]);
 	end
-		assign out = out_reg[7:0];
-		assign out_top = out_reg[11:8];
+	assign out = {j, i};
+		assign out_top = i_d;
 		
 endmodule
 
