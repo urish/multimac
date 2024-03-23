@@ -14,14 +14,14 @@ jobs:
           submodules: recursive
 
       - name: Build GDS
-        uses: TinyTapeout/tt-gds-action@tt06
+        uses: TinyTapeout/tt-gds-action@openlane-2024.03.15
   
   precheck:
     needs: gds
     runs-on: ubuntu-latest
     steps:
       - name: Run Tiny Tapeout Precheck
-        uses: TinyTapeout/tt-gds-action/precheck@tt06
+        uses: TinyTapeout/tt-gds-action/precheck@openlane-2024.03.15
 
   gl_test:
     needs: gds
@@ -33,7 +33,7 @@ jobs:
           submodules: recursive
 
       - name: GL test
-        uses: TinyTapeout/tt-gds-action/gl_test@tt06
+        uses: TinyTapeout/tt-gds-action/gl_test@openlane-2024.03.15
 
   viewer:
     needs: gds
@@ -42,4 +42,4 @@ jobs:
       pages: write      # to deploy to Pages
       id-token: write   # to verify the deployment originates from an appropriate source
     steps:
-      - uses: TinyTapeout/tt-gds-action/viewer@tt06
+      - uses: TinyTapeout/tt-gds-action/viewer@openlane-2024.03.15
